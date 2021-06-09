@@ -66,12 +66,21 @@ d <- rbind(hh_2019, hh_2045)
 
 # Example visual. Summarize the distribution of Dvmt by county in the two years
 library(tidyverse)
+library(ggplot2)
+
+#If you don't have the above libraries, run these three install packages (just once)--remove comments to run
+#install.packages("tidyverse")
+#install.packages("ggplot2")
+#install.packages("colorspace")
 
 ggplot(d, aes(x = Dvmt, fill = as.factor(Year))) +
   geom_histogram(binwidth = 5) +
   facet_grid(Year ~ Azone, scales = 'free_y')
 
 View(d)
+#If you want to extract just d to a .csv file with commas delimiting the fields, use the next line--remove comment to run
+#write.table(d,"June09.csv",sep=",")
+
 
 d1 <- d %>%
   group_by(Year, Azone) %>%
@@ -83,9 +92,6 @@ d1 <- d %>%
             sum_TransitTrips = sum(TransitTrips),
             sum_VehicleTrips = sum(VehicleTrips))
 
-
-
-library(ggplot2)
 
 View(d1)
 
